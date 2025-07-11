@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-In this project, we aim to use machine learning techniques to accurately predict if a university student is experiencing depression based on a range of available factors.
+This is our final project for CAP4770 Intro to Data Science. We aim to use machine learning techniques to accurately predict if a university student is experiencing depression based on a range of available factors.
 
 Group Project for Data Science course CAP4770 at the University of Florida.
 
