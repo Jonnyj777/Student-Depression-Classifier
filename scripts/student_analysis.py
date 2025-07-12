@@ -5,7 +5,7 @@ import pandas as pd
 import matplotlib.pyplot as plt 
 import seaborn as sns 
 
-def load_data(path=".../data/student_depression_dataset.csv"):
+def load_data(path="../data/student_depression_dataset.csv"):
     return pd.read_csv(path)
 
 def target_distribution(df, target_column="Depression"):
