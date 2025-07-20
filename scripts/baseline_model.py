@@ -4,6 +4,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score
+from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
 
 from evaluation import plot_cf
 
@@ -43,7 +44,41 @@ def train_baseline_model():
     accuracy = accuracy_score(y_test, y_pred)
     print(f'Accuracy: {accuracy}')
 
-    return y_test, y_pred
+
+    ##############################################################################
+    print("\n=== RUNNING FAST RANDOMIZED SEARCH ===")
+    
+    # Define parameter space
+    param_distributions = {
+        'max_depth': [3, 5, 7, 9, 11, 13, 15, None],
+        'min_samples_leaf': [1, 2, 5, 10, 15],
+        'min_samples_split': [2, 5, 10, 15, 20],
+        'criterion': ["entropy", "gini"]
+    }
+    
+    # Use RandomizedSearchCV - much faster!
+    random_search = RandomizedSearchCV(
+        estimator=clf, 
+        param_distributions=param_distributions,
+        n_iter= 150,  # Only try 150 random combinations
+        cv=5,       # Use 3-fold CV instead of 5
+        n_jobs=-1,  # Use all CPU cores
+        verbose=1,
+        random_state=42
+    )
+    
+    random_search.fit(X_train, y_train)
+    
+    print("Random search best accuracy:", random_search.best_score_)
+    print("Random search best parameters:", random_search.best_params_)
+    
+    # Use best model for predictions
+    best_model = random_search.best_estimator_
+    y_pred_best = best_model.predict(X_test)
+    best_accuracy = accuracy_score(y_test, y_pred_best)
+    print(f"Best model test accuracy: {best_accuracy}")
+
+    return y_test, y_pred_best
 
 if __name__ == "__main__":
     y_test, y_pred = train_baseline_model()
@@ -57,3 +92,4 @@ if __name__ == "__main__":
 # - https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html
 # - https://www.geeksforgeeks.org/pandas/python-pandas-get_dummies-method/ 
 # - https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.drop.html
+# - https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.RandomizedSearchCV.html
