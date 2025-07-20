@@ -24,6 +24,7 @@ This is our final project for CAP4770 Intro to Data Science, University of Flori
 - Jupyter
 - Pandas
 - Scikit-learn
+- Seaborn
 - Matplotlib
 
 ## Team Members
