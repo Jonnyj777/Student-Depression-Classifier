@@ -3,6 +3,7 @@
 import pandas as pd 
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.tree import export_text
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
 
@@ -77,6 +78,15 @@ def train_baseline_model():
     y_pred_best = best_model.predict(X_test)
     best_accuracy = accuracy_score(y_test, y_pred_best)
     print(f"Best model test accuracy: {best_accuracy}")
+
+    # Fix: X_train may be a numpy array or DataFrame; handle accordingly
+    if hasattr(X_train, "columns"):
+        feature_names = X_train.columns.tolist()
+    else:
+        feature_names = [f"feature_{i}" for i in range(X_train.shape[1])]
+
+    tree_rules = export_text(best_model, feature_names=feature_names)
+    print(tree_rules)
 
     return y_test, y_pred_best
 
