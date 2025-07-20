@@ -14,7 +14,7 @@ This is our final project for CAP4770 Intro to Data Science, University of Flori
 
 - Explore data relationships using visualizations
 - Build baseline models (Decision Tree, Random Forest)
-- Evaluate models using metrics like Accuracy, F1, Confusion Maxtrix, Precision
+- Evaluate models using metrics like Accuracy, F1, Confusion Matrix, Precision
 - Identify which factors are most prominent with student depression
 - Share actionable insights to help with early intervention
 
