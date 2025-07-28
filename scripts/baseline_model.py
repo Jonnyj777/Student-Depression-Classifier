@@ -7,7 +7,7 @@ from sklearn.tree import export_text
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
 
-from evaluation import plot_cf
+from evaluation import plot_cf, get_f1_score, get_precision_score
 
 def load_data():
     return pd.read_csv("../data/student_depression_dataset.csv")
@@ -44,7 +44,14 @@ def train_baseline_model():
     # prints accuracy score of actual vs. predicted
     accuracy = accuracy_score(y_test, y_pred)
     print(f'Accuracy: {accuracy}')
-
+    
+    # prints F1 score
+    f1 = get_f1_score(y_test, y_pred)
+    print(f'F1 score: {f1}')
+    
+    # prints Precision score
+    precision = get_precision_score(y_test, y_pred)
+    print(f'Precision score: {precision}')
 
     # use randomized search cv to enhance model
     print("\n=== RUNNING FAST RANDOMIZED SEARCH ===")
@@ -78,6 +85,10 @@ def train_baseline_model():
     y_pred_best = best_model.predict(X_test)
     best_accuracy = accuracy_score(y_test, y_pred_best)
     print(f"Best model test accuracy: {best_accuracy}")
+    best_f1 = get_f1_score(y_test, y_pred_best)
+    print(f"Best model F1 score: {best_f1}")
+    best_precision = get_precision_score(y_test, y_pred_best)
+    print(f"Best model Precision score: {best_precision}")
 
     # fix: X_train may be a numpy array or dataframe
     if hasattr(X_train, "columns"):
