@@ -33,3 +33,8 @@ This is our final project for CAP4770 Intro to Data Science, University of Flori
 - Sensi Dehaarte
 - Jahkiyah Dehaarte
 - Jonathan Phillips
+
+## Running Code
+In order to run the code, ensure that you have python installed on your device. To check this, run `python` or install it on your device
+
+In order to run the code, go to the terminal (preferably in VSCode) and enter the command ` python3 scripts/randomForest.py ` to run the randomForest.py file or run `python3 scripts/baseline_model.py` to run the baseline model. 
